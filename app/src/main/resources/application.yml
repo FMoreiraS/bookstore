@@ -1,4 +1,9 @@
 spring:
   datasource:
-    url: "jdbc://service@localhost:5432/bookstore"
+    url: "jdbc:mariadb://localhost:3306/BOOKSTORE"
+    username: "root"
+    password: ""
+    driver-class-name: "org.mariadb.jdbc.Driver"
+  jpa:
+    database-platform: "org.hibernate.dialect.MariaDBDialect"
 

@@ -5,12 +5,13 @@
  * For more details on building Java & JVM projects, please refer to https://docs.gradle.org/9.3.0/userguide/building_java_projects.html in the Gradle documentation.
  */
 
+
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
     id("org.springframework.boot").version("4.1.0-M1")
     id("io.freefair.lombok").version("9.2.0")
-    id("org.flywaydb.flyway").version("10.0.0")
+    id("org.flywaydb.flyway").version("12.0.2")
 }
 
 repositories {
@@ -18,15 +19,25 @@ repositories {
     mavenCentral()
 }
 
+buildscript {
+    dependencies {
+        //classpath 'com.h2database:h2:2.4.240'
+        classpath("org.mariadb.jdbc:mariadb-java-client:3.5.7")
+    }
+}
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web:4.1.0-M1")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:4.1.0-M1")
     implementation("org.springframework.boot:spring-boot-starter-validation:4.1.0-M1")
+    // Production database client
     implementation("org.mariadb.jdbc:mariadb-java-client:3.5.7")
+    implementation("org.flywaydb:flyway-mysql:12.0.1")
+    // Test database client
+    testImplementation("com.h2database:h2:2.4.240")
+
 
     testImplementation("org.springframework.boot:spring-boot-starter-test:4.1.0-M1")
-
-    testImplementation("com.h2database:h2:2.4.240")
+    
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
 
@@ -34,6 +45,13 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+}
+
+// Useful for flyway
+
+flyway {
+    url = "jdbc:mariadb://localhost:3306/bookstore"
+    user = "root"
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

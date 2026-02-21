@@ -19,11 +19,11 @@ import lombok.Setter;
 @Table(name = "AUTHORS")
 public class Author {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AUTHORS_SEQ")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(value = AccessLevel.NONE)
     private Long id;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", length = 100, unique = true, nullable = false)
     private String name;
 
     @ManyToMany(mappedBy = "authors")

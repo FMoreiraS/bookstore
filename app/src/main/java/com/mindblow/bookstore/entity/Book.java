@@ -22,14 +22,14 @@ import lombok.Setter;
 @Table(name = "BOOKS")
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOOKS_SEQ")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(value = AccessLevel.NONE)
     private Long id;
 
-    @Column(name = "NAME", nullable= false)
+    @Column(name = "NAME", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "SYNOPSIS", nullable = false)
+    @Column(name = "SYNOPSIS", nullable = false, length = 10_000)
     private String synopsis; 
 
     @Column(name = "PRICE", nullable = false)
@@ -41,7 +41,7 @@ public class Book {
     @Column(name = "YEAR", nullable = false)
     private Long year;
 
-    @Column(name = "ISSN", nullable = false)
+    @Column(name = "ISSN", nullable = false, unique = true)
     private String issn;
 
     @ManyToMany

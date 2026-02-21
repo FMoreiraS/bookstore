@@ -20,11 +20,11 @@ import lombok.Setter;
 @Table(name = "PUBLISHERS")
 public class Publisher {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PUBLISHERS_SEQ")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(value = AccessLevel.NONE)
     private Long id;
     
-    @Column(name = "NAME")
+    @Column(name = "NAME", unique = true,length=100, nullable = false)
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "publisher")
