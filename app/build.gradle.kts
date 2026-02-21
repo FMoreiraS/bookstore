@@ -10,6 +10,7 @@ plugins {
     application
     id("org.springframework.boot").version("4.1.0-M1")
     id("io.freefair.lombok").version("9.2.0")
+    id("org.flywaydb.flyway").version("10.0.0")
 }
 
 repositories {
@@ -21,8 +22,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web:4.1.0-M1")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:4.1.0-M1")
     implementation("org.springframework.boot:spring-boot-starter-validation:4.1.0-M1")
+    implementation("org.mariadb.jdbc:mariadb-java-client:3.5.7")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test:4.1.0-M1")
+
     testImplementation("com.h2database:h2:2.4.240")
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)

@@ -1,6 +1,5 @@
 package com.mindblow.bookstore.controller;
 
-
 import java.util.Optional;
 import java.util.Set;
 
@@ -44,7 +43,6 @@ public class BookController {
     @GetMapping("/{id}/authors")
     public ResponseEntity<?> findAuthorBooks(@PathVariable Long id){
         Set<AuthorDTO> authorDTOs = service.findBookAuthors(id);
-
         return ResponseEntity.ok(authorDTOs);
     }
 

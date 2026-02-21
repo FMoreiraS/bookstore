@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.mindblow.bookstore.dto.AuthorDTO;
@@ -96,13 +98,18 @@ public class BookServiceImpl implements BookService{
         return Optional.of(bookRepository.save(book)).map(mapper::toDTO);
     }
 
-
     @Override
     public Set<AuthorDTO> findBookAuthors(Long bookId){
         Optional<Book> b = bookRepository.findById(bookId);
         if(b.isEmpty()) throw new BookNotFoundException(bookId);
         Set<Author> authorEntities = b.get().getAuthors();
         return authorEntities.stream().map(authorMapper::toDTO).collect(Collectors.toSet());
+    }
+
+    @Override
+    public Page<BookDTO> findByPublisher(Long id, PageRequest pageRequest){
+        Page<Book> books = bookRepository.findByPublisher(id, pageRequest);
+        return books.map(mapper::toDTO);
     }
 
     private List<Author> findAuthors(Set<Long> authorIds){

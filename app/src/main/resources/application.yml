@@ -1,0 +1,4 @@
+spring:
+  datasource:
+    url: "jdbc://service@localhost:5432/bookstore"
+
