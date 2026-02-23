@@ -11,7 +11,6 @@ plugins {
     application
     id("org.springframework.boot").version("4.1.0-M1")
     id("io.freefair.lombok").version("9.2.0")
-    id("org.flywaydb.flyway").version("12.0.2")
 }
 
 repositories {
@@ -19,19 +18,12 @@ repositories {
     mavenCentral()
 }
 
-buildscript {
-    dependencies {
-        //classpath 'com.h2database:h2:2.4.240'
-        classpath("org.mariadb.jdbc:mariadb-java-client:3.5.7")
-    }
-}
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web:4.1.0-M1")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:4.1.0-M1")
     implementation("org.springframework.boot:spring-boot-starter-validation:4.1.0-M1")
     // Production database client
     implementation("org.mariadb.jdbc:mariadb-java-client:3.5.7")
-    implementation("org.flywaydb:flyway-mysql:12.0.1")
     // Test database client
     testImplementation("com.h2database:h2:2.4.240")
 
@@ -47,17 +39,10 @@ dependencies {
     implementation(libs.guava)
 }
 
-// Useful for flyway
-
-flyway {
-    url = "jdbc:mariadb://localhost:3306/bookstore"
-    user = "root"
-}
-
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 
