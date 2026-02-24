@@ -10,6 +10,7 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
     id("org.springframework.boot").version("4.1.0-M1")
+    id("io.spring.dependency-management").version("1.1.7")
     id("io.freefair.lombok").version("9.2.0")
 }
 
@@ -22,6 +23,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web:4.1.0-M1")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:4.1.0-M1")
     implementation("org.springframework.boot:spring-boot-starter-validation:4.1.0-M1")
+    implementation("org.springframework.boot:spring-boot-starter-security-oauth2-resource-server:4.1.0-M2")
+
     // Production database client
     implementation("org.mariadb.jdbc:mariadb-java-client:3.5.7")
     // Test database client

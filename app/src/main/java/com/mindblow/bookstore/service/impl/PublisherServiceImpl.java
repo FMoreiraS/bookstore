@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mindblow.bookstore.dto.PublisherDTO;
 import com.mindblow.bookstore.dto.PublisherSaveDTO;
@@ -11,7 +12,6 @@ import com.mindblow.bookstore.entity.Publisher;
 import com.mindblow.bookstore.mapper.PublisherMapper;
 import com.mindblow.bookstore.repository.PublisherRepository;
 import com.mindblow.bookstore.service.PublisherService;
-
 
 @Service
 public class PublisherServiceImpl implements PublisherService{
@@ -24,12 +24,13 @@ public class PublisherServiceImpl implements PublisherService{
     public Optional<PublisherDTO> findById(Long id){
         return repository.findById(id).map(mapper::toDTO);
     }
-
+    @Transactional
     @Override
     public PublisherDTO save(PublisherSaveDTO publisherSaveDTO){
         return mapper.toDTO(repository.save(mapper.toEntity(publisherSaveDTO)));
     }
-
+    
+    @Transactional
     @Override
     public Optional<PublisherDTO> update(Long id, PublisherSaveDTO saveDTO){
         Optional<Publisher> dto = repository.findById(id);
