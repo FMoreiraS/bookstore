@@ -1,5 +1,6 @@
 package com.mindblow.bookstore.service.impl;
 
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,25 @@ public class UserServiceImpl implements UserService{
         userCart.setCartItems(Set.of());
         entity.setCart(userCart);
         return mapper.toDTO(repository.save(entity));
+    }
+
+    @Override
+    public Optional<UserDTO> updateUser(Long id, UserSaveDTO dto) {
+        Optional<User> userToUpdate = repository.findById(id);
+        if (userToUpdate.isEmpty()) return Optional.empty();
+        
+        User entity = userToUpdate.get();
+        String[] newFullName = dto.fullName().split(" ");
+        entity.setFistName(newFullName[0]);
+        entity.setLastName(newFullName[1]);
+        entity.setEmail(dto.email());
+        
+        return Optional.of(mapper.toDTO(repository.save(null)));
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        repository.deleteById(id);
     }
 }
 
